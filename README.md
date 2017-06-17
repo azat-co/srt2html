@@ -1,6 +1,6 @@
 # srt2html
 
-Convert STR (captions) to HTML with ease and grace
+Convert STR (captions) to HTML (transcriptions) with ease and grace by removing timestamps, new lines, numbers and adding p tags.
 
 ## Installs
 
