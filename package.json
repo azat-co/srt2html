@@ -1,5 +1,5 @@
 {
-  "name": "str2html",
+  "name": "srt2html",
   "version": "1.0.1",
   "description": "Convert STR (captions) to HTML with ease and grace",
   "main": "srt-to-html.js",
