@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/azat-co/str2html/issues"
   },
-  "homepage": "https://github.com/azat-co/str2html#readme"
+  "homepage": "https://github.com/azat-co/str2html#readme",
+  "dependencies": {
+    "globalog": "^1.0.1"
+  }
 }

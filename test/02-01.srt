@@ -1,0 +1,283 @@
+1
+00:00:00,800 --> 00:00:05,570
+Welcome to Module 2: Node
+Production Preparation. First of all,
+
+2
+00:00:05,570 --> 00:00:11,010
+how do you secure your app by using
+environment variables? Environment
+
+3
+00:00:11,010 --> 00:00:16,580
+variables, they're great, great tools that
+will allow you to prevent accidentally
+
+4
+00:00:16,580 --> 00:00:23,410
+publishing sensitive information, not use
+GitHub, GitLab, or Gitbucket or any other
+
+5
+00:00:23,410 --> 00:00:28,580
+repository for your code, because they
+might be hacked and they are hacked
+
+6
+00:00:28,580 --> 00:00:33,860
+periodically. You can check out the links
+in the footnotes. Code is less flexible
+
+7
+00:00:33,860 --> 00:00:39,070
+when you actually hardcode some sensitive
+information or some environment specific
+
+8
+00:00:39,070 --> 00:00:45,210
+information, such as the URL of your
+database. Because if you are moving your
+
+9
+00:00:45,210 --> 00:00:50,120
+code from environment to environment,
+that variable needs to change.
+
+10
+00:00:50,120 --> 00:00:55,580
+Let's take a look at this code example.
+You might have done a similar coding and I
+
+11
+00:00:55,580 --> 00:01:02,650
+did too, especially on the earlier
+stages when all I have is just one file.
+
+12
+00:01:02,650 --> 00:01:08,170
+Why bother? Well, obviously,
+this code is not flexible at all.
+
+13
+00:01:08,170 --> 00:01:14,343
+If I want to move it from my development
+environment to a QA, such as staging or
+
+14
+00:01:14,343 --> 00:01:19,550
+maybe CI/CD environment where I have
+a different database, I should have a
+
+15
+00:01:19,550 --> 00:01:25,180
+different database at least,
+and that code will be very inflexible.
+
+16
+00:01:25,180 --> 00:01:30,650
+I have to modify the value actually in the
+code because I have my username,
+
+17
+00:01:30,650 --> 00:01:35,293
+"admin", and then I have the password
+right there in the connection URL.
+
+18
+00:01:35,293 --> 00:01:41,270
+Same thing with API Key and API Secret.
+It's not flexible at all and then as I've
+
+19
+00:01:41,270 --> 00:01:46,530
+mentioned, the version control systems,
+they might be hacked or you might
+
+20
+00:01:46,530 --> 00:01:51,020
+accidentally publish it. So it's not a
+good practice. Having a separate
+
+21
+00:01:51,020 --> 00:01:56,160
+config.json file or any json file,
+it's not a good practice either.
+
+22
+00:01:56,160 --> 00:02:01,950
+It's a bad practice because most likely,
+you still will be committing that file in
+
+23
+00:02:01,950 --> 00:02:08,872
+the code repository. So it's not any
+different than having those variables in
+
+24
+00:02:08,872 --> 00:02:15,260
+a JavaScript file. Even Loopback, a very
+popular framework, even that framework
+
+25
+00:02:15,260 --> 00:02:21,922
+uses datasources.json which is a bad
+practice. The best practice is to use
+
+26
+00:02:21,922 --> 00:02:30,300
+environment variables. For example,
+MY_ENV_VAR, all capitals with underscore,
+
+27
+00:02:30,300 --> 00:02:34,998
+has the value of "Hello". And then
+within my Node.js code, I can use
+
+28
+00:02:34,998 --> 00:02:44,220
+process.env.MY_ENV_VAR. Similarly,
+I can run the command on the next line.
+
+29
+00:02:44,220 --> 00:02:48,056
+In this case, in order for me
+to save the environment variable,
+
+30
+00:02:48,056 --> 00:02:54,904
+I would need to say "export." This is just
+a Linux standard command and please notice
+
+31
+00:02:54,904 --> 00:03:00,690
+that there's no spaces. There are no
+spaces either before or after the equal
+
+32
+00:03:00,690 --> 00:03:07,090
+sign when you define the value for
+environment variable. Now, more examples.
+
+33
+00:03:07,090 --> 00:03:12,660
+So going back to that piece of code where
+we are connected to the database and
+
+34
+00:03:12,660 --> 00:03:17,506
+making our OAuth call, now we can
+grab them from environment variables,
+
+35
+00:03:17,506 --> 00:03:22,915
+process.env.API_KEY,
+process.env.API_SECRET,
+
+36
+00:03:22,915 --> 00:03:26,434
+and process.env.DATABASE_URL.
+
+37
+00:03:26,434 --> 00:03:32,020
+This way, it's very easy to transport
+our code. Our code becomes very
+
+38
+00:03:32,020 --> 00:03:36,449
+flexible and portable. We can just
+change the environment variable.
+
+39
+00:03:36,449 --> 00:03:42,629
+We don't have to modify the code itself.
+And by the way, a lot of libraries support
+
+40
+00:03:42,629 --> 00:03:47,984
+NODE_ENV. When you set it to
+"production," their behavior will change.
+
+41
+00:03:47,984 --> 00:03:53,090
+For example, Express, one of the
+most popular Node.js frameworks,
+
+42
+00:03:53,090 --> 00:03:58,950
+has a different level of error messaging
+and error stack tracing when you use it in
+
+43
+00:03:58,950 --> 00:04:03,827
+production. It has fewer because obviously
+in production, you don't want to output a
+
+44
+00:04:03,827 --> 00:04:10,170
+lot of that information. It might expose
+you, make your application more vulnerable
+
+45
+00:04:10,170 --> 00:04:16,579
+to attackers. Some of the ways to populate
+environment variables or env vars.
+
+46
+00:04:16,579 --> 00:04:23,565
+First of all, we can populate them in AWS
+EC2 user data. This is a specific place
+
+47
+00:04:23,565 --> 00:04:29,581
+where we initialize our environment,
+either our cloud environment or our
+
+48
+00:04:29,581 --> 00:04:34,080
+application environment. So that's
+a perfect place to set them up.
+
+49
+00:04:34,080 --> 00:04:40,534
+Also we could set env vars in Dockerfile.
+AWS has a special mechanism for
+
+50
+00:04:40,534 --> 00:04:46,410
+provisioning infrastructure. It's called
+CloudFormation, and we can set them up
+
+51
+00:04:46,410 --> 00:04:52,270
+right in the CloudFormation blueprint or
+provide parameters, which when we create a
+
+52
+00:04:52,270 --> 00:04:56,691
+stack from the CloudFormation
+blueprint, those parameters will be set.
+
+53
+00:04:56,691 --> 00:05:01,680
+Also, most of the cloud providers,
+they have some type of a client,
+
+54
+00:05:01,680 --> 00:05:06,450
+a CLI client, Command Line Interface
+client, and they would allow you to set
+
+55
+00:05:06,450 --> 00:05:11,210
+those environment variables, especially
+platform as a service, such as Elastic
+
+56
+00:05:11,210 --> 00:05:16,930
+Beanstalk or Heroku. With the command
+line, you can save any environment
+
+57
+00:05:16,930 --> 00:05:22,000
+variable for that particular app in a
+cloud, so the value would be saved.

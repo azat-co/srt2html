@@ -1,7 +1,12 @@
+require('globalog')
 const fs = require('fs')
 const inputFile = process.argv[2]
-const outputFile = process.argv[3] || inputFile.replace('.srt', '.html')
 
+if (!inputFile) {
+  error('Please provide the SRT file name and path (if needed)... exiting')
+  process.exit(1)
+}
+const outputFile = process.argv[3] || inputFile.replace('.srt', '.html')
 const htmlize = (str) => {
   return `<p>${str}</p>`
 }
@@ -13,3 +18,4 @@ fs.writeFileSync(outputFile,
     .map((line)=>line.replace(/(\r\n|\n|\r)/gm,""))    
   .join(' '))
 )
+info('All is done. Used 3 char and --> to filter non text.')
