@@ -1,5 +1,7 @@
 # srt2html
 
+Convert STR (captions) to HTML with ease and grace
+
 ## Installs
 
 ```
