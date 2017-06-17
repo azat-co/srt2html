@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('globalog')
 const fs = require('fs')
 const inputFile = process.argv[2]
