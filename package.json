@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Convert STR (captions) to HTML with ease and grace",
   "main": "srt2html.js",
-  "bin": "srt2html.js",
+  "bin": "./srt2html.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
