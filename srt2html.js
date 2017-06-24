@@ -17,7 +17,7 @@ fs.writeFileSync(outputFile,
     .split('\n')
     // .filter((line, index)=>(index%5 == 2 || index%5 ==3) ? true: false)
     .filter((line, index)=>(/^\D+/.test(line) && !line.includes('-->')))
-    // .map((line)=>line.replace(/(\r\n|\n|\r)/gm,""))    
+    .map((line)=>line.replace(/(\r\n|\n|\r)/gm,""))    
   .join(' '))
 )
 info('All is done. Used non digit and --> to filter non text.')

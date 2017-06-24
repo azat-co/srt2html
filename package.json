@@ -5,7 +5,7 @@
   "main": "srt2html.js",
   "bin": "./srt2html.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node srt2html.js ./test/02-01.srt ./test/test.html"
   },
   "repository": {
     "type": "git",
