@@ -16,7 +16,7 @@ fs.writeFileSync(outputFile,
   htmlize(fs.readFileSync(inputFile, 'utf8')
     .split('\n')
     // .filter((line, index)=>(index%5 == 2 || index%5 ==3) ? true: false)
-    .filter((line, index)=>(line.length>1 && /^\D+/.test(line) && !line.includes('-->')))
+    .filter((line, index)=>(line.length>2 && /^\D+/.test(line) && !line.includes('-->')))
     .map((line)=>line.replace(/(\r\n|\n|\r)/gm,""))    
   .join(' '))
 )
