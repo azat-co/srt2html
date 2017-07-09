@@ -8,16 +8,21 @@ if (!inputFile) {
   error('Please provide the SRT file name and path (if needed)... exiting')
   process.exit(1)
 }
-const outputFile = process.argv[3] || inputFile.replace('.srt', '.html')
-const htmlize = (str) => {
-  return `<p>${str}</p>`
+if (inputFile == './*.srt') {
+  
+} else {
+  const outputFile = process.argv[3] || inputFile.replace('.srt', '.html')
+  const htmlize = (str) => {
+    return `<p>${str}</p>`
+  }
+  fs.writeFileSync(outputFile, 
+    htmlize(fs.readFileSync(inputFile, 'utf8')
+      .replace(/^\uFEFF/, '')
+      .split('\n')
+      // .filter((line, index)=>(index%5 == 2 || index%5 ==3) ? true: false)
+      .filter((line, index)=>(line.length>2 && /^\D+/.test(line) && !line.includes('-->')))
+      .map((line)=>line.replace(/(\r\n|\n|\r)/gm,""))    
+    .join(' '))
+  )
+  info('All is done. Used non digit and --> to filter non text.')
 }
-fs.writeFileSync(outputFile, 
-  htmlize(fs.readFileSync(inputFile, 'utf8')
-    .split('\n')
-    // .filter((line, index)=>(index%5 == 2 || index%5 ==3) ? true: false)
-    .filter((line, index)=>(line.length>2 && /^\D+/.test(line) && !line.includes('-->')))
-    .map((line)=>line.replace(/(\r\n|\n|\r)/gm,""))    
-  .join(' '))
-)
-info('All is done. Used non digit and --> to filter non text.')
